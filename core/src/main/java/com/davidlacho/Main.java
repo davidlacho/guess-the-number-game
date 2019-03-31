@@ -23,8 +23,10 @@ public class Main {
 //        call method next() to get a random number
         log.info("number = {}", number );
 
-//        get game bean from context (container)
-        Game game = context.getBean(Game.class);
+        MessageGenerator messageGenerator = context.getBean(MessageGenerator.class);
+
+        log.info("getMainMessage = {}", messageGenerator.getMainMessage());
+        log.info("getResultMessage = {}", messageGenerator.getResultMessage());
 
 //        close the context
         context.close();
