@@ -3,19 +3,20 @@ package com.davidlacho;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+@Component
 public class GameImpl implements Game {
 
     //    Constants
     private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
 
     //    Fields
-    @Autowired
     private NumberGenerator numberGenerator;
-    private int guessCount = 10;
+    private int guessCount;
     private int number;
     private int guess;
     private int smallest;
@@ -23,12 +24,18 @@ public class GameImpl implements Game {
     private int remainingGuesses;
     private boolean validNumberRange = true;
 
+    //    Constructor
+    public GameImpl(@Autowired NumberGenerator numberGenerator, @Autowired int guessCount) {
+        this.numberGenerator = numberGenerator;
+        this.guessCount = guessCount;
+    }
+
     //    Init
     @PostConstruct
     @Override
     public void reset() {
-        smallest = 0;
-        guess = 0;
+        smallest = numberGenerator.getMinNumber();
+        guess = numberGenerator.getMinNumber();
         remainingGuesses = guessCount;
         biggest = numberGenerator.getMaxNumber();
         number = numberGenerator.next();
@@ -72,19 +79,24 @@ public class GameImpl implements Game {
     }
 
     @Override
+    public int getGuessCount() {
+        return guessCount;
+    }
+
+    @Override
     public void check() {
         checkValidNumberRange();
 
-        if(validNumberRange) {
-            if(guess > number) {
-                biggest = guess -1;
+        if (validNumberRange) {
+            if (guess > number) {
+                biggest = guess - 1;
             }
             if (guess < number) {
                 smallest = guess + 1;
             }
         }
 
-        remainingGuesses --;
+        remainingGuesses--;
     }
 
     @Override
@@ -102,8 +114,7 @@ public class GameImpl implements Game {
         return !isGameWon() && remainingGuesses <= 0;
     }
 
-//    private methods
-
+    //    private methods
     private void checkValidNumberRange() {
         validNumberRange = (guess >= smallest) && (guess <= biggest);
     }

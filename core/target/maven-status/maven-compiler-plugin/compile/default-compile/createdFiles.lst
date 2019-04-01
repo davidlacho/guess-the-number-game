@@ -1,5 +1,8 @@
 com/davidlacho/Game.class
 com/davidlacho/NumberGeneratorImpl.class
+com/davidlacho/AppConfig.class
 com/davidlacho/NumberGenerator.class
 com/davidlacho/GameImpl.class
 com/davidlacho/Main.class
+com/davidlacho/MessageGeneratorImpl.class
+com/davidlacho/MessageGenerator.class
