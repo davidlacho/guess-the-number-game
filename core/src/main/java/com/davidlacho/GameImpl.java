@@ -15,8 +15,8 @@ public class GameImpl implements Game {
     private static final Logger log = LoggerFactory.getLogger(GameImpl.class);
 
     //    Fields
-    private NumberGenerator numberGenerator;
-    private int guessCount;
+    private final NumberGenerator numberGenerator;
+    private final int guessCount;
     private int number;
     private int guess;
     private int smallest;
