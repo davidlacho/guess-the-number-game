@@ -14,11 +14,11 @@ public class NumberGeneratorImpl implements NumberGenerator {
 
     @Getter
     private final int maxNumber;
-    
+
     @Getter
     private final int minNumber;
 
-//    == constructors ==
+    //    == constructors ==
 
     @Autowired
     public NumberGeneratorImpl(@MaxNumber int maxNumber, @MinNumber int minNumber) {
